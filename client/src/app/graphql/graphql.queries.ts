@@ -21,8 +21,8 @@ const GET_TODOS = gql`
 // 'addToDo(name: $name, description: $description)' is the actual mutation. $name and $description are the arguments passed in from $name and $description in the definition
 // 'id', 'name', 'description' are the fields I want to return. Mutations can return data
 const ADD_TODO = gql`
-    mutation addToDo($name: String!, $description: String!) {
-        addToDo(name: $name, description: $description) {
+    mutation addTodo($name: String!, $description: String!) {
+        addTodo(name: $name, description: $description) {
             id
             name
             description
@@ -36,8 +36,8 @@ const ADD_TODO = gql`
 // 'deleteToDo(id: $id)' is the actual mutation. $id is the argument passed in from $id in the definition
 // 'id' is the field I want to return. Mutations can return data
 const DELETE_TODO = gql`
-    mutation deleteToDo($id: Int!) {
-        deleteToDo(id: $id) {
+    mutation deleteTodo($id: Int!) {
+        deleteTodo(id: $id) {
             id
         }
     }
