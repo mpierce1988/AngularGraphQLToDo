@@ -57,10 +57,10 @@ const RootMutationType = new GraphQLObjectType({
             description: 'Add a Todo',
             args: {
                 name: {
-                    type: GraphQLNonNull(GraphQLString)
+                    type: new GraphQLNonNull(GraphQLString)
                 },
                 description: {
-                    type: GraphQLNonNull(GraphQLString)
+                    type: new GraphQLNonNull(GraphQLString)
                 },
             },
             resolve: (root, args) => {
@@ -100,7 +100,8 @@ const RootMutationType = new GraphQLObjectType({
 
 // Create Schema
 const schema = new GraphQLSchema({
-    query: RootQueryType
+    query: RootQueryType,
+    mutation: RootMutationType
 });
 
 // Set up middleware
