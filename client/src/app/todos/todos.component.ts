@@ -17,6 +17,12 @@ export class TodosComponent implements OnInit {
   todos: any[] = []; // array to hold todos
   error: any[] = []; // array to hold errors
 
+  // Reactive form to capture todo details
+  todoForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required)
+  });
+
   // Constructor injection: Apollo client for GraphQL
   constructor(private apollo: Apollo) {
     
@@ -34,14 +40,8 @@ export class TodosComponent implements OnInit {
       });
   }
 
-  // Reactive form to capture todo details
-  todoForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required)
-  });
-
   // Method to add Todo using GraphQL mutation
-  addToDo() {
+  addTodo() {
     // appolo graphql query to add todo
     this.apollo.mutate({
       mutation: ADD_TODO,
@@ -64,7 +64,7 @@ export class TodosComponent implements OnInit {
   };
 
   // Method to delete a todo using GraphQL mutation
-  deleteToDo(id: string) {
+  deleteTodo(id: string) {
     // query to delete todo
     this.apollo.mutate({
       mutation: DELETE_TODO,
