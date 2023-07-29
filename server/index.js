@@ -46,6 +46,58 @@ const RootQueryType = new GraphQLObjectType({
     })
 });
 
+// Create Mutations for Todos
+// Mutations are used to create, update, and delete data
+const RootMutationType = new GraphQLObjectType({
+    name: 'Mutation',
+    description: 'Root Mutation',
+    fields: () => ({
+        addTodo: {
+            type: TodoType,
+            description: 'Add a Todo',
+            args: {
+                name: {
+                    type: GraphQLNonNull(GraphQLString)
+                },
+                description: {
+                    type: GraphQLNonNull(GraphQLString)
+                },
+            },
+            resolve: (root, args) => {
+                // Create new todo
+                const newToDo = {
+                    id: Todos.length + 1,
+                    name: args.name,
+                    description: args.description
+                }
+                // Add to array of Todos. Alternatively, you can add to a database
+                Todos.push(newToDo);
+                // return the new todo
+                return newToDo;
+            }
+        },
+        deleteTodo: {
+            type: TodoType,
+            description: 'Delete a Todo',
+            args: {
+                id: {
+                    type: new GraphQLNonNull(GraphQLInt)
+                }
+            },
+            resolve: (root, args) => {
+                const todo = Todos.find(todo => todo.id === args.id);
+
+                if (todo){
+                    Todos.splice(Todos.indexOf(todo), 1);
+                    return todo;
+                }
+                return null;
+            }
+        }
+        
+    })
+});
+
 // Create Schema
 const schema = new GraphQLSchema({
     query: RootQueryType
